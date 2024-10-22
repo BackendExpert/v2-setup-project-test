@@ -3,9 +3,32 @@
 const inquirer = require('inquirer');
 const { exec } = require('child_process');
 
+const currentDir = process.cwd();
+const clientDir = path.join(currentDir, 'client');
 
-async function YesFunc() {
-    console.log("Create Clinet and Server in Samefolder")
+async function CreateClientFolderandMoveFiles() {
+    try{
+        if (!fs.existsSync(clientDir)) {
+            fs.mkdirSync(clientDir);
+        }
+
+        const files = fs.readdirSync(currentDir);
+
+        files.forEach(file => {
+            if (file !== 'client') {
+              const oldPath = path.join(currentDir, file);
+              const newPath = path.join(clientDir, file);
+              
+              fs.renameSync(oldPath, newPath);
+            }
+        });
+
+        console.log('All files moved to "client" folder.');
+        process.chdir(clientDir); 
+    }
+    catch(err){
+        console.log(err)
+    }
 }
 
 async function NoFunc() {
@@ -28,10 +51,15 @@ async function main() {
         
         switch(createClientServer){
             case 'Yes':
-                await YesFunc()
+                await CreateClientFolderandMoveFiles()
+                break
             
             case 'No':
                 await NoFunc()
+                break
+
+            default:
+                console.log('Invalid selection.');
         }
     }
     catch(err){
