@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/BackendExpert/v2-setup-project-test/issues"
   },
-  "homepage": "https://github.com/BackendExpert/v2-setup-project-test#readme"
+  "homepage": "https://github.com/BackendExpert/v2-setup-project-test#readme",
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "inquirer": "^6.0.0"
+  }
 }
