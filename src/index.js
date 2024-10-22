@@ -9,7 +9,7 @@ async function YesFunc() {
 }
 
 async function NoFunc() {
-    console.log("Create Clinet and Server in Samefolder")
+    console.log("Create Clinet and Server in diffarace folders")
 }
 
 
