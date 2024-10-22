@@ -1,0 +1,25 @@
+{
+  "name": "v2-setup-project-test",
+  "version": "1.0.0",
+  "description": "Testing of Version 2",
+  "main": "src/index.js",
+  "bin": {
+    "create-project-setup": "src/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BackendExpert/v2-setup-project-test.git"
+  },
+  "keywords": [
+    "Testing"
+  ],
+  "author": "jehankandy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BackendExpert/v2-setup-project-test/issues"
+  },
+  "homepage": "https://github.com/BackendExpert/v2-setup-project-test#readme"
+}
