@@ -83,6 +83,15 @@ async function DeleteUnnecessaryFilesandFolders (){
     }
 }
 
+async function MovetoClientAndInstallNPMs () {
+    try{
+
+    }
+    catch(err){
+        console.log(err)
+    }
+}
+
 async function main() {
     try{
         const answers = await inquirer.prompt([
@@ -100,6 +109,7 @@ async function main() {
             case 'Yes':
                 await CreateReactViteProject()
                 await DeleteUnnecessaryFilesandFolders()
+                await MovetoClientAndInstallNPMs()
                 break
             
             case 'No':
