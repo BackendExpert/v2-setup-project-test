@@ -123,6 +123,10 @@ async function InstallTailwindCSS () {
     }
 }
 
+async function NoFunc() {
+    console.log("Under Development")
+}
+
 async function main() {
     try{
         const answers = await inquirer.prompt([
@@ -140,11 +144,11 @@ async function main() {
             case 'Yes':
                 await CreateReactViteProject()
                 exit;
-
                 break
             
             case 'No':
                 await NoFunc()
+                exit;
                 break
 
             default:
