@@ -22,15 +22,15 @@ async function execPromise(command) {
     });
 }
 
-const client_tailwind_index_source = argv.source || path.join(__dirname, '../docs/index.css');
-const client_tailwind_index_destination = argv.destination || path.join(process.cwd(), './src');
+
 
 async function CreateReactViteProject () {
     try{
         const output = await execPromise('npm create vite@latest client -- --template react');
         console.log(`Vite project created successfully: ${output}`);
 
-        await DeleteUnnecessaryFilesandFolders();
+        await MovetoClientAndInstallNPMs();
+        await InstallTailwindCSS();
 
     }
 
@@ -54,14 +54,6 @@ async function DeleteUnnecessaryFilesandFolders (){
         if (fs.existsSync(nodeModulesPath)) {
             fs.rmSync(nodeModulesPath, { recursive: true, force: true });
             console.log(`Folder deleted: ${nodeModulesPath}`);    
-            await MovetoClientAndInstallNPMs()
-            await InstallTailwindCSS()
-            console.log('Curent WD ' + process.cwd())        
-        }
-        else{
-            await MovetoClientAndInstallNPMs()
-            await InstallTailwindCSS()
-            console.log('Curent WD ' + process.cwd())
         }
     }
     catch(err){
@@ -91,9 +83,32 @@ async function InstallTailwindCSS () {
     try{
         const tailwindInstall = await execPromise('npm install -D tailwindcss postcss autoprefixer');
         const tailwindcssInit = await execPromise('npx tailwindcss init -p');
-        await fs.copy(client_tailwind_index_source, client_tailwind_index_destination);
 
-        console.log(`: ${output}`);
+        const client_tailwind_index_source = argv.source || path.join(__dirname, '../docs/index.css');
+        const client_tailwind_index_destination = argv.destination || path.join(process.cwd(), './src');   
+
+        const client_tailwind_config_source = argv.source || path.join(__dirname, '../docs/tailwind.config.js');
+        const client_tailwind_config_destination = argv.destination || path.join(process.cwd(), './');  
+
+        const client_AppJSX_source = argv.source || path.join(__dirname, '../docs/App.jsx');
+        const client_AppJSX_destination = argv.destination || path.join(process.cwd(), './');  
+
+        if (fs.existsSync(client_tailwind_index_source)) {
+            await fs.promises.copyFile(client_tailwind_index_source, path.join(client_tailwind_index_destination, 'index.css'));
+            await fs.promises.copyFile(client_tailwind_config_source, path.join(client_tailwind_config_destination, 'tailwind.config.js'));
+            await fs.promises.copyFile(client_AppJSX_source, path.join(client_AppJSX_destination, 'App.jsx'));
+            console.log(`Tailwind CSS installed and Initialized successfully.`);
+
+            console.log(`Changing Current Working Directory to Root Directory...`);
+            const rootDir = path.join(currentDir, '../');
+
+            process.chdir(rootDir);
+
+            console.log(`Changed Current Working Directory to Root Directory...! ${rootDir}`);
+
+        } else {
+            console.error(`Source CSS file does not exist: ${client_tailwind_index_source}`);
+        }
     }
     catch(err){
         console.log(err)
