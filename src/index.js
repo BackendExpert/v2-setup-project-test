@@ -91,7 +91,7 @@ async function InstallTailwindCSS () {
         const client_tailwind_config_destination = argv.destination || path.join(process.cwd(), './');  
 
         const client_AppJSX_source = argv.source || path.join(__dirname, '../docs/App.jsx');
-        const client_AppJSX_destination = argv.destination || path.join(process.cwd(), './');  
+        const client_AppJSX_destination = argv.destination || path.join(process.cwd(), './src');  
 
         if (fs.existsSync(client_tailwind_index_source)) {
             await fs.promises.copyFile(client_tailwind_index_source, path.join(client_tailwind_index_destination, 'index.css'));
@@ -100,11 +100,19 @@ async function InstallTailwindCSS () {
             console.log(`Tailwind CSS installed and Initialized successfully.`);
 
             console.log(`Changing Current Working Directory to Root Directory...`);
-            const rootDir = path.join(currentDir, '../');
+            const rootDir = path.join(currentDir, './');
 
             process.chdir(rootDir);
 
-            console.log(`Changed Current Working Directory to Root Directory...! ${rootDir}`);
+            console.log(`Changed Current Working Directory to Root Directory Successfull...! ${process.cwd()}`);
+
+            console.log(`Deleting Unnecessary Files and Folders from Root Directory...`);
+
+            await DeleteUnnecessaryFilesandFolders()
+
+            console.log(`Root Directory Clear Successful...!`);
+
+            console.log(`Now you can Continue.., Server will be added in Future Releases..`);
 
         } else {
             console.error(`Source CSS file does not exist: ${client_tailwind_index_source}`);
