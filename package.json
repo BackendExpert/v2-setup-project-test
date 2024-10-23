@@ -24,6 +24,7 @@
   "homepage": "https://github.com/BackendExpert/v2-setup-project-test#readme",
   "dependencies": {
     "fs-extra": "^11.2.0",
-    "inquirer": "^6.0.0"
+    "inquirer": "^6.0.0",
+    "yargs": "^17.7.2"
   }
 }

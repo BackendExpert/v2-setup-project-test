@@ -6,6 +6,7 @@ const path = require('path')
 const currentDir = process.cwd();
 const fs = require('fs');
 const { exit } = require('process');
+const argv = require('yargs').argv;
 
 async function execPromise(command) {
     return new Promise((resolve, reject) => {
@@ -21,6 +22,8 @@ async function execPromise(command) {
     });
 }
 
+const client_tailwind_index_source = argv.source || path.join(__dirname, '../docs/index.css');
+const client_tailwind_index_destination = argv.destination || path.join(process.cwd(), './src');
 
 async function CreateReactViteProject () {
     try{
@@ -88,6 +91,8 @@ async function InstallTailwindCSS () {
     try{
         const tailwindInstall = await execPromise('npm install -D tailwindcss postcss autoprefixer');
         const tailwindcssInit = await execPromise('npx tailwindcss init -p');
+        await fs.copy(client_tailwind_index_source, client_tailwind_index_destination);
+
         console.log(`: ${output}`);
     }
     catch(err){
